@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  ENV: "staging"
+  EUREKA_INSTANCE_HOSTNAME: "hystrixboard"
+  EUREKA_INSTANCE_NONSECUREPORT: "7979"
+  SERVER_PORT: "7979"
+metadata:
+  name: hystrixboard-cm
+  namespace: default

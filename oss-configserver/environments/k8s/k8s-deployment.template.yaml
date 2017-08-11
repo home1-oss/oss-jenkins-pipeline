@@ -1,0 +1,156 @@
+# the template for deployment of k8s
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: configserver-service-#{PEER_NAME}#
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  template:
+    metadata:
+      annotations:
+        pod.beta.kubernetes.io/hostname: configserver
+      labels:
+        app-group: configserver
+        app: configserver-#{PEER_NAME}#
+        tag: home1-oss
+    spec:
+      containers:
+      - image: home1oss/oss-configserver:latest
+        imagePullPolicy: Always
+        name: configserver-service
+        ports:
+        - containerPort: 8761
+          name: web
+          protocol: TCP
+#        envFrom:
+#        - configMapRef:
+#            name: eureka-config-common
+#        - configMapRef:
+#            name: eureka-config-#{PEER_NAME}#
+        env:
+        - name: EUREKA_CLIENT_FETCHREGISTRY
+          value: "true"
+        - name: EUREKA_CLIENT_REGISTERWITHEUREKA
+          value: "true"
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: ENV
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        - name: EUREKA_INSTANCE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-#{PEER_NAME}#
+              key: EUREKA_INSTANCE_HOSTNAME
+        - name: EUREKA_INSTANCE_IP_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-#{PEER_NAME}#
+              key: SPRING_CLOUD_CLIENT_IP_ADDRESS
+#        - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+#          valueFrom:
+#            configMapKeyRef:
+#              name: eureka-config-#{PEER_NAME}#
+#              key: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+        - name: EUREKA_INSTANCE_NONSECUREPORT
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: EUREKA_INSTANCE_NONSECUREPORT
+        - name: PEER
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-#{PEER_NAME}#
+              key: PEER
+        - name: SECURITY_BASIC_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: SECURITY_BASIC_ENABLED
+        - name: SECURITY_USER_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: SECURITY_USER_NAME
+        - name: SECURITY_USER_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: SECURITY_USER_PASSWORD
+        - name: SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: SERVER_PORT
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-common
+              key: SPRING_APPLICATION_NAME
+        - name: SPRING_CLOUD_CLIENT_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-#{PEER_NAME}#
+              key: SPRING_CLOUD_CLIENT_HOSTNAME
+        - name: SPRING_CLOUD_CLIENT_IP_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-config-#{PEER_NAME}#
+              key: SPRING_CLOUD_CLIENT_IP_ADDRESS
+        - name: SPRING_PROFILES_ACTIVE
+          value: "$(ENV).env"
+
+
+          - APP_ADMINPUBLICKEY=${APP_ADMINPUBLICKEY:-RSA1024_PUB_X509:MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/gmBcdQZxiQmhQrP1awAZuuOl4snl7cEV8n65osVO7CdqxXG5mUYNVr6siwuTm/SsmBV+86JISlzvMK/Bxwsmf/ApZicgItChmDuU9TCaZIksqnpbtONnCm/sHWwa/2hqPTjdc0LC+jQ/FCU2b9vpbSId0Wg28/gtoGaLWbsm/QIDAQAB}
+          - DB_ADDR=${DB_ADDR:-~/.oss/oss-configserver/h2}
+          - DB_NAME=${DB_NAME:-oss-configserver}
+          - DB_PORT=${DB_PORT:-3306}
+          - DB_PASS=${DB_PASS:-user_pass}
+          - DB_USER=${DB_USER:-root}
+          - ENCRYPT_KEYSTORE_ALIAS=${ENCRYPT_KEYSTORE_ALIAS:-key_alias}
+          - ENCRYPT_KEYSTORE_LOCATION=${ENCRYPT_KEYSTORE_LOCATION:-classpath:keystore.jks}
+          - ENCRYPT_KEYSTORE_PASSWORD=${ENCRYPT_KEYSTORE_PASSWORD:-store_pass} # store password
+          - ENCRYPT_KEYSTORE_SECRET=${ENCRYPT_KEYSTORE_SECRET:-key_pass} # key password
+          - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:-http://user:user_pass@eureka.local:8761/eureka/}
+          - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-configserver.local}
+          - EUREKA_INSTANCE_NONSECUREPORT=${EUREKA_INSTANCE_NONSECUREPORT:-8888}
+          - GIT_HOST=${GIT_HOST:-gitlab.internal}
+          - GIT_PREFIX=${GIT_PREFIX:-git@gitlab.internal:configserver}
+          - SECURITY_USER_PASSWORD=${SECURITY_USER_PASSWORD:-admin_pass}
+          - SPRING_APPLICATION_NAME=${SPRING_APPLICATION_NAME:-configserver.local}
+          - SERVER_PORT=${SERVER_PORT:-8888}
+          - SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION=${SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION:-common}
+          - SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL=${SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL:-develop}
+          - SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY=${SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY:-classpath:deploy_key} # changeme
+          - SPRING_CLOUD_CONFIG_SERVER_DEFAULTLABEL=${SPRING_CLOUD_CONFIG_SERVER_DEFAULTLABEL:-develop}
+          - SPRING_CLOUD_CONFIG_SERVER_DEFAULTPROFILE=${SPRING_CLOUD_CONFIG_SERVER_DEFAULTPROFILE:-default}
+          - SPRING_CLOUD_CONFIG_SERVER_MONITOR_BITBUCKET_ENABLED=${SPRING_CLOUD_CONFIG_SERVER_MONITOR_BITBUCKET_ENABLED:-false}
+          - SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITHUB_ENABLED=${SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITHUB_ENABLED:-false}
+          - SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLABPATH_ENABLED=${SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLABPATH_ENABLED:-true}
+          - SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLAB_ENABLED=${SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLAB_ENABLED:-false}
+          - SPRING_CLOUD_CONFIG_SERVER_MONITOR_WHITELIST=${SPRING_CLOUD_CONFIG_SERVER_MONITOR_WHITELIST} # changeme
+          - SPRING_PROFILES_ACTIVE=${ENV:-development}.env
+          - SPRING_RABBITMQ_HOST=${SPRING_RABBITMQ_HOST:-cloudbus.local} # changeme
+          - SPRING_RABBITMQ_PASSWORD=${SPRING_RABBITMQ_PASSWORD:-user_pass} # changeme
+          - SPRING_RABBITMQ_PORT=${SPRING_RABBITMQ_PORT:-5672}
+          - SPRING_RABBITMQ_USERNAME=${SPRING_RABBITMQ_USERNAME:-user} # changeme
+
+
+
+        volumeMounts:
+        - name: epty
+          mountPath: /tmp
+      volumes:
+      - name: epty
+        emptyDir: {}

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  ENV: "staging"
+  APP_ADMINPUBLICKEY: "RSA1024_PUB_X509:MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/gmBcdQZxiQmhQrP1awAZuuOl4snl7cEV8n65osVO7CdqxXG5mUYNVr6siwuTm/SsmBV+86JISlzvMK/Bxwsmf/ApZicgItChmDuU9TCaZIksqnpbtONnCm/sHWwa/2hqPTjdc0LC+jQ/FCU2b9vpbSId0Wg28/gtoGaLWbsm/QIDAQAB"
+  EUREKA_INSTANCE_HOSTNAME: "configserver"
+  DB_ADDR: "~/.oss/oss-configserver/h2"
+  DB_NAME: "oss-configserver"
+  DB_PORT: "3306"
+  DB_PASS: "user_pass"
+  DB_USER: "root"
+  ENCRYPT_KEYSTORE_ALIAS: "key_alias"
+  ENCRYPT_KEYSTORE_LOCATION: "classpath:keystore.jks"
+  ENCRYPT_KEYSTORE_PASSWORD: "store_pass"
+  ENCRYPT_KEYSTORE_SECRET: "key_pass"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
+  GIT_HOST: "gitlab.internal"
+  GIT_PREFIX: "ssh://git@gitlab.internal:20022/configserver"
+  SECURITY_USER_PASSWORD: "admin_pass"
+  SPRING_APPLICATION_NAME: "configserver.local"
+  SERVER_PORT: "8888"
+  SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION: "common"
+  SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL: "develop"
+  SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY: "classpath:deploy_key"
+  SPRING_CLOUD_CONFIG_SERVER_DEFAULTLABEL: "develop"
+  SPRING_CLOUD_CONFIG_SERVER_DEFAULTPROFILE: "default"
+  SPRING_CLOUD_CONFIG_SERVER_MONITOR_BITBUCKET_ENABLED: "false"
+  SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITHUB_ENABLED: "false"
+  SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLABPATH_ENABLED: "true"
+  SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLAB_ENABLED: "false"
+  SPRING_PROFILES_ACTIVE: "development.env"
+  SPRING_RABBITMQ_HOST: "cloudbus"
+  SPRING_RABBITMQ_PASSWORD: "user_pass"
+  SPRING_RABBITMQ_PORT: "5672"
+  SPRING_RABBITMQ_USERNAME: "user"
+#  LOGGING_LEVEL_: "debug"
+
+metadata:
+  name: configserver-cm
+  namespace: default

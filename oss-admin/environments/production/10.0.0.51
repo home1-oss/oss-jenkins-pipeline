@@ -1,0 +1,11 @@
+
+export DOCKER_REGISTRY=registry.docker.internal
+export ENV=production
+export EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://oss-eureka-peer1.idc:8761/eureka,http://oss-eureka-peer2.idc:8761/eureka,http://oss-eureka-peer3.idc:8761/eureka
+export EUREKA_INSTANCE_HOSTNAME=oss-admin.idc
+export EUREKA_INSTANCE_NONSECUREPORT=8700
+export HOST_IP_ADDRESS=10.0.0.51
+
+export SPRING_APPLICATION_NAME=oss-admin
+export SPRING_PROFILES_ACTIVE=production.env
+export SERVER_PORT=8700

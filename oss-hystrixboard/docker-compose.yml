@@ -1,0 +1,19 @@
+
+version: '2.1'
+services:
+  oss-hystrixboard:
+    image: home1oss/oss-hystrixboard:${PROJECT_VERSION:-latest}
+    command: start
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:-hystrixboard.local}
+    container_name: ${EUREKA_INSTANCE_HOSTNAME:-hystrixboard.local}
+    ports:
+    - "${EUREKA_INSTANCE_NONSECUREPORT:-7979}:${SERVER_PORT:-7979}"
+    environment:
+    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-hystrixboard.local}
+    - EUREKA_INSTANCE_NONSECUREPORT=${EUREKA_INSTANCE_NONSECUREPORT:-7979}
+    - SERVER_PORT=${SERVER_PORT:-7979}
+
+networks:
+  default:
+    external:
+      name: oss-network

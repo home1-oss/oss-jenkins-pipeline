@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  ENV: "staging"
+  EUREKA_INSTANCE_NONSECUREPORT: "8083"
+  MANAGEMENT_PORT: "8083"
+  SERVER_PORT: "8083"
+  EUREKA_INSTANCE_HOSTNAME: "todomvc-thymeleaf"
+metadata:
+  name: todomvc-thymeleaf-cm
+  namespace: default

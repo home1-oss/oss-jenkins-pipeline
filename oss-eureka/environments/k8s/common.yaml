@@ -1,0 +1,26 @@
+# eureka common config file
+# add or chang instance please modify this file
+
+apiVersion: v1
+kind: ConfigMap
+data:
+  DOCKER_REGISTRY: "registry.docker.internal"
+  ENV: "staging"
+  EUREKA_INSTANCE_NONSECUREPORT: "8761"
+  EUREKA_PEER1_HOST: eureka-peer1
+  EUREKA_PEER2_HOST: eureka-peer2
+  EUREKA_PEER3_HOST: eureka-peer3
+  EUREKA_PEER1_PORT: "8761"
+  EUREKA_PEER2_PORT: "8761"
+  EUREKA_PEER3_PORT: "8761"
+  EUREKA_PEER1_IP_ADDRESS: eureka-peer1
+  EUREKA_PEER2_IP_ADDRESS: eureka-peer2
+  EUREKA_PEER3_IP_ADDRESS: eureka-peer3
+  SERVER_PORT: "8761"
+  SPRING_APPLICATION_NAME: eureka-cluster
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka-peer1:8761/eureka/,http://user:user_pass@eureka-peer2:8761/eureka/,http://user:user_pass@eureka-peer3:8761/eureka/"
+  SECURITY_BASIC_ENABLED: "false"
+  SECURITY_USER_NAME : "user"
+  SECURITY_USER_PASSWORD : "user_pass"
+metadata:
+  name: eureka-config-common

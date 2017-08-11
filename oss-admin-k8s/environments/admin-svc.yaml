@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin
+  labels:
+    app: admin
+spec:
+  ports:
+    - port: 8700
+      name: admin-port
+    - port: 5005
+      name: java-debug
+  selector:
+    app: admin
+  type: NodePort

@@ -1,0 +1,4 @@
+export PEER=peer1
+export EUREKA_INSTANCE_HOSTNAME=oss-eureka-peer1.internal
+export SPRING_CLOUD_CLIENT_HOSTNAME=oss-eureka-peer1.internal
+export SPRING_CLOUD_CLIENT_IP_ADDRESS=192.168.199.51

@@ -1,0 +1,14 @@
+{
+  "COMPOSE_FILE_NAME": "docker-compose.yml",
+  "COMPOSE_FILE_URL": "https://raw.githubusercontent.com/home1-oss/oss-admin/develop/docker-compose.yml",
+  "REMOTE_HOSTS": {
+    "staging": [
+      "192.168.199.51"
+    ],
+    "production": [
+      "10.0.0.51"
+    ]
+  },
+  "PROJECT_TYPE":"docker-compose",
+  "HEALTH_API":"http://#host#:8700"
+}

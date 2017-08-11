@@ -1,0 +1,15 @@
+{
+  "COMPOSE_FILE_NAME": "docker-compose.yml",
+  "REMOTE_HOSTS": {
+    "staging": [
+      "example_host1",
+      "example_host2",
+      "example_host3"
+    ],
+    "production": [
+
+    ]
+  },
+  "PROJECT_TYPE":"k8s",
+  "HEALTH_API":"http://#host#:8761"
+}

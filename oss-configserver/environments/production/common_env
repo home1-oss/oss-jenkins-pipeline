@@ -1,0 +1,24 @@
+export CLOUD_CLIENT_HOSTNAME=oss-configserver.idc
+export CONFIGSERVER_INSTANCE_HOSTNAME=oss-configserver.idc
+export DB_ADDR=mysql.internal
+export DB_NAME=oss-configserver
+export DB_PASS=user_pass
+export DB_PORT=3306
+export DB_USER=root
+export DOCKER_REGISTRY=registry.docker.internal
+#export ENCRYPT_KEYSTORE_ALIAS="<alias>"
+#export ENCRYPT_KEYSTORE_PASSWORD="<password>"
+#export ENCRYPT_KEYSTORE_SECRET="<secret>"
+export ENV=production
+export EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://oss-eureka-peer1.idc:8761/eureka,http://oss-eureka-peer2.idc:8761/eureka,http://oss-eureka-peer3.idc:8761/eureka
+export SPRING_APPLICATION_NAME=oss-configserver
+export SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION=common-production
+export SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL=master
+export SPRING_CLOUD_CONFIG_SERVER_DEFAULTLABEL=master
+export SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY_PATH=~/.oss/oss-configserver
+export SPRING_CLOUD_CONFIG_SERVER_MONITOR_WHITELIST=gitlab.internal,192.168.199.15
+export SPRING_RABBITMQ_HOST=cloudbus.internal
+export SPRING_RABBITMQ_PORT=5672
+
+#export SECURITY_USER_NAME=<username>
+#export SECURITY_USER_PASSWORD=<password>

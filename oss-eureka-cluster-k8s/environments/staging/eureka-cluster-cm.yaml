@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  ENV: "staging"
+  EUREKA_CLIENT_FETCHREGISTRY: "true"
+  EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka-cluster-1.eureka-cluster:8761/eureka/,http://user:user_pass@eureka-cluster-2.eureka-cluster:8761/eureka/,http://user:user_pass@eureka-cluster-0.eureka-cluster:8761/eureka/"
+  EUREKA_INSTANCE_HOSTNAME: "${hostname}.eureka-cluster"
+  EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+  EUREKA_INSTANCE_NONSECUREPORT: "8761"
+  PEER: "${hostname}.eureka-cluster"
+  SECURITY_BASIC_ENABLED: "false"
+  SECURITY_USER_NAME: "user"
+  SECURITY_USER_PASSWORD: "user_pass"
+  SERVER_PORT: "8761"
+  SPRING_APPLICATION_NAME: "eureka-cluster"
+  SPRING_CLOUD_CLIENT_HOSTNAME: "${hostname}.eureka-cluster"
+  SPRING_PROFILES_ACTIVE: "development.env"
+metadata:
+  name: eureka-cluster-cm
+  namespace: default

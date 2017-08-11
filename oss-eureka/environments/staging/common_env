@@ -1,0 +1,14 @@
+export DOCKER_REGISTRY=registry.docker.internal
+export ENV=staging
+export EUREKA_INSTANCE_NONSECUREPORT=8761
+export EUREKA_PEER1_HOST=oss-eureka-peer1.internal
+export EUREKA_PEER2_HOST=oss-eureka-peer2.internal
+export EUREKA_PEER3_HOST=oss-eureka-peer3.internal
+export EUREKA_PEER1_PORT=8761
+export EUREKA_PEER2_PORT=8761
+export EUREKA_PEER3_PORT=8761
+export EUREKA_PEER1_IP_ADDRESS=192.168.199.51
+export EUREKA_PEER2_IP_ADDRESS=192.168.199.52
+export EUREKA_PEER3_IP_ADDRESS=192.168.199.53
+export SERVER_PORT=8761
+export SPRING_APPLICATION_NAME=eureka-cluster

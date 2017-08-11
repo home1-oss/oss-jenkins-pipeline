@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: admin
+  namespace: default
+  labels:
+    app: admin
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: admin
+    spec:
+      containers:
+      - image: home1oss/oss-admin:#image_version#
+        name: admin
+        env:
+          - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          - name: EUREKA_INSTANCE_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: EUREKA_INSTANCE_HOSTNAME
+          - name: EUREKA_INSTANCE_NONSECUREPORT
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: EUREKA_INSTANCE_NONSECUREPORT
+          - name: JAVA_DEBUG_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: JAVA_DEBUG_PORT
+          - name: SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: SERVER_PORT
+          - name: SPRING_APPLICATION_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: SPRING_APPLICATION_NAME
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: admin-cm
+                key: SPRING_PROFILES_ACTIVE
+        ports:
+          - containerPort: 5005
+            name: java-debug
+          - containerPort: 8700
+            name: admin

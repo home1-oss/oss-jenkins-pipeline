@@ -1,0 +1,35 @@
+<project>
+
+    <bannerLeft>
+        <name>${project.name}</name>
+    </bannerLeft>
+
+    <!--
+    https://maven.apache.org/plugins/maven-site-plugin/examples/sitedescriptor.html
+    https://maven.apache.org/skins/index.html
+    http://maven.apache.org/skins/maven-fluido-skin/
+    https://github.com/apache/maven-skins/blob/trunk/maven-fluido-skin/src/site/site.xml
+    -->
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.5</version>
+    </skin>
+
+    <custom>
+        <fluidoSkin>
+            <topBarEnabled>true</topBarEnabled>
+            <sideBarEnabled>true</sideBarEnabled>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+        </fluidoSkin>
+    </custom>
+    <body>
+        <menu ref="parent" />
+        <menu name="DOCUMENTATION">
+            <item href="README.html" name="README" />
+            <item href="BUILD_GUIDE.html" name="开发" />
+            <item href="DEPLOY_GUIDE.html" name="开发" />
+            <item href="ABOUT_JENKINS2.0_WITH_PIPELINE.html" name="开发" />
+        </menu>
+    </body>
+</project>

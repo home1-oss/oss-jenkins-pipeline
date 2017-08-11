@@ -1,0 +1,48 @@
+# Run cluster on different hosts
+#
+# Key environment variables:
+# ${PEER} peer1 or peer2 or peer3
+# ${EUREKA_PEER1_HOST:-oss-eureka-peer1.internal}:${EUREKA_PEER1_PORT:-8761} ${EUREKA_PEER1_IP_ADDRESS}
+# ${EUREKA_PEER2_HOST:-oss-eureka-peer2.internal}:${EUREKA_PEER1_PORT:-8761} ${EUREKA_PEER2_IP_ADDRESS}
+# ${EUREKA_PEER3_HOST:-oss-eureka-peer3.internal}:${EUREKA_PEER3_PORT:-8761} ${EUREKA_PEER3_IP_ADDRESS}
+version: '2.1'
+services:
+  eureka-peer:
+    image: ${DOCKER_REGISTRY:-home1oss}/oss-eureka:${PROJECT_VERSION:-latest}
+    restart: always
+    command: []
+    container_name: ${EUREKA_INSTANCE_HOSTNAME:-eureka.local}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:-eureka.local}
+    ports:
+    - "${EUREKA_INSTANCE_NONSECUREPORT:-8761}:${SERVER_PORT:-8761}"
+    volumes:
+    - eureka-peer-volume:/tmp
+    environment:
+    - EUREKA_CLIENT_FETCHREGISTRY=true
+    - EUREKA_CLIENT_REGISTERWITHEUREKA=true
+    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://${SECURITY_USER_NAME:-user}:${SECURITY_USER_PASSWORD:-user_pass}@${EUREKA_PEER1_HOST:-oss-eureka-peer1.internal}:${EUREKA_PEER1_PORT:-8761}/eureka/,http://${SECURITY_USER_NAME:-user}:${SECURITY_USER_PASSWORD:-user_pass}@${EUREKA_PEER2_HOST:-oss-eureka-peer2.internal}:${EUREKA_PEER2_PORT:-8761}/eureka/,http://${SECURITY_USER_NAME:-user}:${SECURITY_USER_PASSWORD:-user_pass}@${EUREKA_PEER3_HOST:-oss-eureka-peer3.internal}:${EUREKA_PEER3_PORT:-8761}/eureka/
+    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-eureka.local}
+    - EUREKA_INSTANCE_IP_ADDRESS=${SPRING_CLOUD_CLIENT_IP_ADDRESS}
+    - EUREKA_INSTANCE_PREFER_IP_ADDRESS=${EUREKA_INSTANCE_PREFER_IP_ADDRESS:-false}
+    - EUREKA_INSTANCE_NONSECUREPORT=${EUREKA_INSTANCE_NONSECUREPORT:-8761}
+    - PEER=${PEER}
+    - SECURITY_BASIC_ENABLED=${SECURITY_BASIC_ENABLED:-false}
+    - SECURITY_USER_NAME=${SECURITY_USER_NAME:-user}
+    - SECURITY_USER_PASSWORD=${SECURITY_USER_PASSWORD:-user_pass}
+    - SERVER_PORT=${SERVER_PORT:-8761}
+    - SPRING_APPLICATION_NAME=${SPRING_APPLICATION_NAME:-eureka-standalone}
+    - SPRING_CLOUD_CLIENT_HOSTNAME=${SPRING_CLOUD_CLIENT_HOSTNAME}
+    - SPRING_CLOUD_CLIENT_IP_ADDRESS=${SPRING_CLOUD_CLIENT_IP_ADDRESS}
+    - SPRING_PROFILES_ACTIVE=${ENV:-development}.env
+    extra_hosts:
+    - "${EUREKA_PEER1_HOST}:${EUREKA_PEER1_IP_ADDRESS}"
+    - "${EUREKA_PEER2_HOST}:${EUREKA_PEER2_IP_ADDRESS}"
+    - "${EUREKA_PEER3_HOST}:${EUREKA_PEER3_IP_ADDRESS}"
+
+volumes:
+  eureka-peer-volume: {}
+
+networks:
+  default:
+    external:
+      name: oss-network

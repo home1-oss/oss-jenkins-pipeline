@@ -1,0 +1,6 @@
+export DOCKER_REGISTRY=registry.docker.internal
+
+export ENV=production
+export EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://oss-eureka-peer1.idc:8761/eureka,http://oss-eureka-peer2.idc:8761/eureka,http://oss-eureka-peer3.idc:8761/eureka
+export EUREKA_INSTANCE_HOSTNAME=oss-turbine.idc
+export EUREKA_INSTANCE_NONSECUREPORT=8989

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  ENV: "staging"
+  CONFIG_SERVER_PASSWORD: "user_pass"
+  CONFIG_SERVER_USERNAME: "user"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
+  SPRING_CLOUD_CONFIG_DISCOVERY_SERVICEID: "configserver.local"
+  SPRING_CLOUD_CONFIG_LABEL: "develop"
+  SPRING_PROFILES_ACTIVE: "development.env"
+  SPRING_RABBITMQ_HOST: "cloudbus"
+  SPRING_RABBITMQ_PASSWORD: "user_pass"
+  SPRING_RABBITMQ_PORT: "5672"
+  SPRING_RABBITMQ_USERNAME: "user"
+metadata:
+  name: todomvc-common-cm
+  namespace: default

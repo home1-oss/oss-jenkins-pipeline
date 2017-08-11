@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  ENV: "staging"
+  EUREKA_INSTANCE_NONSECUREPORT: "8090"
+  MANAGEMENT_PORT: "8090"
+  SERVER_PORT: "8090"
+  EUREKA_INSTANCE_HOSTNAME: "todomvc-gateway"
+metadata:
+  name: todomvc-gateway-cm
+  namespace: default

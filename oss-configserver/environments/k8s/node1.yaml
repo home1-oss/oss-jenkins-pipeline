@@ -1,0 +1,11 @@
+# for eureka instance peer1
+
+
+apiVersion: v1
+kind: ConfigMap
+data:
+  HOST_IP_ADDRESS: configserver-node1
+  EUREKA_INSTANCE_HOSTNAME: configserver-node1
+
+metadata:
+  name: configserver-config-node1

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-cluster
+  labels:
+    app: eureka-cluster
+spec:
+  ports:
+    - port: 8761
+      name: eureka-cluster
+      nodePort: 30100
+  selector:
+    app: eureka-cluster
+  clusterIP: None
+  type: NodePort

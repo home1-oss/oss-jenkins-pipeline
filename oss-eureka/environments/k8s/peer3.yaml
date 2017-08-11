@@ -1,0 +1,13 @@
+#for eureka instance peer3
+
+
+apiVersion: v1
+kind: ConfigMap
+data:
+  PEER: peer3
+  EUREKA_INSTANCE_HOSTNAME: eureka-peer3
+  SPRING_CLOUD_CLIENT_HOSTNAME: eureka-peer3
+  SPRING_CLOUD_CLIENT_IP_ADDRESS: eureka-peer3
+  EUREKA_PEER1_EXTERNAL_PORT: "31680"
+metadata:
+  name: eureka-config-peer3

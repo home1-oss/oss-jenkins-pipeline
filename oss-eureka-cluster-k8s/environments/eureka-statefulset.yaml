@@ -1,0 +1,90 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: eureka-cluster
+spec:
+  serviceName: "eureka-cluster"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: eureka-cluster
+    spec:
+      containers:
+      - name: eureka-cluster
+        image: home1oss/oss-eureka:#image_version#
+        env:
+          - name: EUREKA_CLIENT_FETCHREGISTRY
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: EUREKA_CLIENT_FETCHREGISTRY
+          - name: EUREKA_CLIENT_REGISTERWITHEUREKA
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: EUREKA_CLIENT_REGISTERWITHEUREKA
+          - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          - name: EUREKA_INSTANCE_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: EUREKA_INSTANCE_HOSTNAME
+          - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+          - name: EUREKA_INSTANCE_NONSECUREPORT
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: EUREKA_INSTANCE_NONSECUREPORT
+          - name: PEER
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: PEER
+          - name: SECURITY_BASIC_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SECURITY_BASIC_ENABLED
+          - name: SECURITY_USER_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SECURITY_USER_NAME
+          - name: SECURITY_USER_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SECURITY_USER_PASSWORD
+          - name: SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SERVER_PORT
+          - name: SPRING_APPLICATION_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SPRING_APPLICATION_NAME
+          - name: SPRING_CLOUD_CLIENT_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SPRING_APPLICATION_NAME
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cluster-cm
+                key: SPRING_PROFILES_ACTIVE
+        ports:
+        - containerPort: 8761
+          name: eureka-cluster
+

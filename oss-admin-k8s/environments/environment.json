@@ -1,0 +1,4 @@
+{
+  "PROJECT_TYPE":"k8s",
+  "HEALTH_API":"http://#host#:8700"
+}

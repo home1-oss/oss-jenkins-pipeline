@@ -1,0 +1,91 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: todomvc-gateway
+  labels:
+    app: todomvc-gateway
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: todomvc-gateway
+    spec:
+      containers:
+      - image: registry.docker.internal/oss-todomvc-gateway:#image_version#
+        name: todomvc-gateway
+        env:
+          - name: CONFIG_SERVER_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: CONFIG_SERVER_PASSWORD
+          - name: CONFIG_SERVER_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: CONFIG_SERVER_USERNAME
+          - name: EUREKA_INSTANCE_NONSECUREPORT
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-gateway-cm
+                key: EUREKA_INSTANCE_NONSECUREPORT
+          - name: EUREKA_INSTANCE_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-gateway-cm
+                key: EUREKA_INSTANCE_HOSTNAME
+          - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          - name: MANAGEMENT_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-gateway-cm
+                key: MANAGEMENT_PORT
+          - name: SPRING_CLOUD_CONFIG_DISCOVERY_SERVICEID
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_CLOUD_CONFIG_DISCOVERY_SERVICEID
+          - name: SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-gateway-cm
+                key: SERVER_PORT
+          - name: SPRING_CLOUD_CONFIG_LABEL
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_CLOUD_CONFIG_LABEL
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_PROFILES_ACTIVE
+          - name: SPRING_RABBITMQ_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_RABBITMQ_HOST
+          - name: SPRING_RABBITMQ_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_RABBITMQ_PASSWORD
+          - name: SPRING_RABBITMQ_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_RABBITMQ_PORT
+          - name: SPRING_RABBITMQ_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: todomvc-common-cm
+                key: SPRING_RABBITMQ_USERNAME
+        ports:
+          - containerPort: 8090
+            name: todomvc-gateway

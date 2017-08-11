@@ -1,0 +1,12 @@
+{
+  "COMPOSE_FILE_NAME": "docker-compose.yml",
+  "REMOTE_HOSTS": {
+    "staging": [
+      "192.168.199.53"
+    ],
+    "production": [
+      "10.0.0.53"
+    ]
+  },
+  "PROJECT_TYPE":"docker-compose"
+}

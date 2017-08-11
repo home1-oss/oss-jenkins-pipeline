@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todomvc-gateway
+  labels:
+    app: todomvc-gateway
+spec:
+  ports:
+    - port: 8090
+      name: todomvc-gateway
+      nodePort: 30502
+  selector:
+    app: todomvc-gateway
+  type: NodePort
