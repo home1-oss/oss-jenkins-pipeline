@@ -1,4 +1,6 @@
-# README
+# oss-jenkins-pipeline
+Jenkins pipeline that build and deploy oss services and user's applications/services
+
 该项目用来部署YRD-OSS相关的线上环境，使用了Pipeline的脚本方式来实现。YRD-OSS项目目前使用Pipeline的方式进行构建发布。使用Pipeline有如下几个优点：
 
 - 所有的项目部署、测试、发布、部署，均可以脱离繁琐的配置，使用Pipeline脚本大幅度提升项目的构建维护成本；
@@ -80,6 +82,3 @@
         unstash 'source'
 
 9. 执行stash操作时需要注意，在当前目录下的文件才可以进行stash，否则会报错。
-
-
-
