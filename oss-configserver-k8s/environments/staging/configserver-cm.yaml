@@ -8,7 +8,7 @@ data:
   DB_NAME: "oss-configserver"
   DB_PORT: "3306"
   DB_PASS: "user_pass"
-  DB_USER: "root"
+  DB_USER: "user"
   ENCRYPT_KEYSTORE_ALIAS: "key_alias"
   ENCRYPT_KEYSTORE_LOCATION: "classpath:keystore.jks"
   ENCRYPT_KEYSTORE_PASSWORD: "store_pass"

@@ -117,7 +117,7 @@ spec:
           - DB_NAME=${DB_NAME:-oss-configserver}
           - DB_PORT=${DB_PORT:-3306}
           - DB_PASS=${DB_PASS:-user_pass}
-          - DB_USER=${DB_USER:-root}
+          - DB_USER=${DB_USER:-user}
           - ENCRYPT_KEYSTORE_ALIAS=${ENCRYPT_KEYSTORE_ALIAS:-key_alias}
           - ENCRYPT_KEYSTORE_LOCATION=${ENCRYPT_KEYSTORE_LOCATION:-classpath:keystore.jks}
           - ENCRYPT_KEYSTORE_PASSWORD=${ENCRYPT_KEYSTORE_PASSWORD:-store_pass} # store password

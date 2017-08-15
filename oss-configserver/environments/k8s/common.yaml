@@ -10,7 +10,7 @@ data:
   DB_NAME : "oss-configserver"
   DB_PASS : "user_pass"
   DB_PORT : "3306"
-  DB_USER : "root"
+  DB_USER : "user"
   DOCKER_REGISTRY : "registry.docker.internal"
   ENV : "staging"
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE : "http://eureka-peer1:8761/eureka,http://eureka-peer2:8761/eureka,http://eureka-peer3:8761/eureka"
