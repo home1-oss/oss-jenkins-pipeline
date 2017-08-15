@@ -1,18 +1,55 @@
 # BUILD_GUIDE
 
 ### 概述
-> 构建过程，触发机制分为两种，一个是gitlab自动触发，一个是手工触发的参数化构建；在测试环境，由gitlab自动触发，配置了Push Event 和 Merge event的勾子，拉起Jenkins的构建任务。构建任务会调用项目里的ci脚本来做项目的构建和发布，新的项目需要自己来提供ci脚本。线上，由于环境隔离，线下的机器无法直接访问jenkins机器，所以gitlab的hook失效。正式的上线流程里，需要在gitlab打出项目的tag版本，然后手工在jenkins的job上触发构建。
+
+构建过程，触发机制分为
+
+- gitlab自动触发
+- 一个是手工触发的参数化构建
+
+在测试环境，由gitlab自动触发，配置了Push Event 和 Merge event的勾子，拉起Jenkins的构建任务。
+构建任务会调用项目里的ci脚本来做项目的构建和发布，新的项目需要自己来提供ci脚本。
+线上，由于环境隔离，线下的机器无法直接访问jenkins机器，所以gitlab的hook失效。
+正式的上线流程里，需要在gitlab打出项目的tag版本，然后手工在jenkins的job上触发构建。
 
 ### 操作步骤
 1. 在jenkins新建一个Pipeline风格的项目:
-![](image/14839321460541/14840611395284.png)
+- http://jenkins.internal:18083/
+- 'New' -> 'Pipeline' with name 'oss-jenkins-pipeline'
+
 2. 如需配置项目在gitlab自动触发，需要在jenkins配置如下：
+
+'Build Triggers'
+- check 'Build when a change is pushed to GitLab. GitLab CI Service URL: http://jenkins.internal:18083/project/oss-jenkins-pipeline'
+- 'Advanced' -> 'Generate' a 'Secret token'
+ 
 ![](image/14839321460541/14840613432023.png)
 ![](image/14839321460541/14840615835708.png)
+
 3. 配置拉取构建脚本的Git路径,分支名以及脚本目录。
+'Pipeline' 
+- 'Definition'
+> Select 'Pipeline script from SCM'
+- 'SCM'
+> Select 'Git'
+- 'Repositories'
+  + 'Repository UR'
+  > Input 'ssh://git@gitlab.internal:20022/home1-oss/oss-jenkins-pipeline.git'
+  + 'Branches to build'
+  > Input '*/master'
+  + Find SSH key
+    - `docker exec gitlab.internal /app/gitlab/entrypoint.sh export_git_admin_key`
+  + 'Credentials' -> 'Add'
+     > 'Domain' select 'Global credentials (unrestricted)'
+     > 'Kind' select 'SSH Username with private key'
+     > 'Scope' select 'Global'
+     > 'Username' input 'git'
+     > 'Private Key' -> 'Enter directly'
+     > 'ID' -> 'jenkinsfile'
+- 'Script Path'
+> Input 'src/main/pipeline/Jenkinsfile_deploy.groovy'
+
 ![](image/14839321460541/14840616986741.png)
-注意：这里Credentials如果没有配置过，需要添加一个私钥，用来访问gitlab的项目:
-![](image/14839321460541/14840620452693.png)
 
 4. 如需gitlab触发jenkins的构建，需要在gitlab上的项目添加webhook：
 ![](image/14839321460541/14840627372599.png)
@@ -38,48 +75,49 @@
 
 4.Done
 
+# DEPLOY_GUIDE
 
-### gitlab插件环境变量
-> 在pipeline的构建脚本中，如果是gitlab的webhook触发，可以获取如下的构建参数：
+### 概述
+> 目前，OSS的服务，使用docker进行部署，这里使用Pipeline实现了docker镜像的自动部署过程。
+主要特性包括：
 
-propertyName|value|description|
----|---|---
-gitlabBranch | master | 分支
-gitlabSourceBranch | master| 
-gitlabActionType | PUSH| 触发事件
-gitlabUserName | 梁建| 用户名
-gitlabUserEmail | jianliang9@yirendai.com| 用户邮箱
-gitlabSourceRepoHomepage | http://gitlab.internal/jianliang9/my-pipeline-test|http地址
-gitlabSourceRepoName | my-pipeline-test|项目名
-gitlabSourceNamespace | jianliang9|
-gitlabSourceRepoURL | git@gitlab.internal:jianliang9/my-pipeline-test.git|
-gitlabSourceRepoSshUrl | git@gitlab.internal:jianliang9/my-pipeline-test.git|
-gitlabSourceRepoHttpUrl | http://gitlab.internal/jianliang9/my-pipeline-test.git|
-gitlabMergeRequestTitle | null|
-gitlabMergeRequestDescription | null|
-gitlabMergeRequestId | null|
-gitlabMergeRequestIid | null|
-gitlabMergeRequestLastCommit | 2c4467453d9814f67cf82faba32c9320544fe1c5|
-gitlabTargetBranch | master|
-gitlabTargetRepoName | null|
-gitlabTargetNamespace | null|
-gitlabTargetRepoSshUrl | null|
-gitlabTargetRepoHttpUrl | null|
-gitlabBefore | 9361e4aab88cb85d326ff8bbd9b97f0383010133|
-gitlabAfter | 2c4467453d9814f67cf82faba32c9320544fe1c5|
-gitlabTriggerPhrase | null|
+- 支持并行部署多个节点，
+- 支持分批次部署，可先部署少量节点，验证通过后再行部署其他节点
+- 部署失败支持回滚操作，需要手工触发部署上一版本
+
+### 操作步骤
+1. 在jenkins新建一个Pipeline风格的项目:
+2. 这里配置了Build Triggers，在oss service build任务执行完毕后触发
+![](image/14824771652340/14848180880075.jpg)
+
+3. 配置获取部署脚本的Git路径,分支名以及脚本文件。(注意k8s部署的配置文件为 jenkinsfile_deploy_mixed.groovy. 当gitlab的ssh端口是非22(如20022)的情况下，项目url要写成 ssh://git@gitlab.internal:20022/home1-oss/oss-jenkins-pipeline.git)
+![](image/14824771652340/14848181888748.jpg)
+注意：这里Credentials如果没有配置过，需要添加一个私钥，用来访问gitlab的项目:
+![](image/14839321460541/14840620452693.png)
+4. 配置完成
+
+### 流程说明
+这里上面的部署流程如下：
+![](image/14824771652340/14848188971225.jpg)
+PreDeploy是预发布环节，默认会部署一台，然后等待确认服务OK后再行部署其他节点：
+![](image/14824771652340/14848195238454.jpg)
+流程图如下：
+![](image/14824771652340/14850724862026.jpg)
+
+### NOTES
++ 用Snippet Generator生成的pipeline下拉列表语法报错，需要使用`[$class: 'ChoiceParameterDefinition', choices: 'staging\nproduction', description: '环境', name:'ENV']`替换生成的下拉选择代码。
++ groovy脚本运行在一个沙箱中，有些方法默认没有权限执行，需要在jenkins的配置中做额外配置
+![菜单](image/14824771652340/14828538204186.png)
+![配置](image/14824771652340/14828537783662.png)
+
++ 不熟悉脚本语言的用户注意，groovy脚本中''不能引用变量，“”才可以引用变量，如"${env}"
 
 ### Notes
-- Jenkins的Slave节点采用Docker镜像得方式启动的的话，需要挂载如下volume: `-v /var/run/docker.sock:/var/run/docker.sock`然后在宿主机给sock文件增加777的权限 `chmod 777 /var/run/docker.sock`
-- 目前构建脚本支持两种方式触发，一种是gitlab的hook触发，参数自动带入，但需要预先配置；另一种是手工触发，手工触发需要注意，点击立即构建后，需要再次点击构建流程，到达定制参数的页面，如下：
+目前构建脚本支持两种方式触发
+- gitlab的hook触发，参数自动带入，但需要预先配置
+- 手工触发，手工触发需要注意，点击立即构建后，需要再次点击构建流程，到达定制参数的页面，如下：
     从stage view进入
 ![StageView进入](image/14839321460541/14841024261310.jpg)
     从日志页面进入：
     ![](image/14839321460541/14841025142296.png)
 ![](image/14839321460541/14841025495146.png)
-- 首次构建，可能会遇到groovy脚本执行权限受阻的情形，形如：
-![](image/14839321460541/14841038575618.png)
-需要进入系统管理->In-process Script Approval将对应的方法加入白名单
-![](image/14839321460541/14841041270687.png)
-- 其他
-
