@@ -173,10 +173,13 @@ def deploy(paramMap, ip, workspace, sshKeyParam) {
 
     echo "=================Copy script:===================="
     sh "ssh ${sshKeyParam} -o StrictHostKeyChecking=no ${REMOTE_USER}@${ip} " +
-            "\"if ! test -d /tmp/${paramMap.PROJECT}; " +
-            "then mkdir /tmp/${paramMap.PROJECT}; else rm -rf /tmp/${paramMap.PROJECT}/*; fi;\""
+            "\"if ! test -d ~/.docker; then mkdir -p ~/.docker; fi;\""
     sh "scp ${sshKeyParam} -o StrictHostKeyChecking=no " +
             "~/.docker/config.json ${REMOTE_USER}@${ip}:~/.docker/config.json"
+
+    sh "ssh ${sshKeyParam} -o StrictHostKeyChecking=no ${REMOTE_USER}@${ip} " +
+            "\"if ! test -d /tmp/${paramMap.PROJECT}; " +
+            "then mkdir /tmp/${paramMap.PROJECT}; else rm -rf /tmp/${paramMap.PROJECT}/*; fi;\""
     sh "scp ${sshKeyParam} -o StrictHostKeyChecking=no " +
             "-r ${workspace}/${DOCKER_FILE} ${REMOTE_USER}@${ip}:/tmp/${paramMap.PROJECT}/"
     sh "scp ${sshKeyParam} -o StrictHostKeyChecking=no " +
