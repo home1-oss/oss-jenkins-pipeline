@@ -66,6 +66,7 @@ stage("PrepareResource") {
                 // docker auth
                 dir("src/main/docker/") {
                     if (fileExists("config.json")) {
+                        sh "if [ ! -d ~/.docker/ ]; then mkdir -p ~/.docker/; fi"
                         sh "cp config.json ~/.docker/"
                     }
                 }
