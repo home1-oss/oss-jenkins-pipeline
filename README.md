@@ -146,6 +146,12 @@ gitlabTriggerPhrase | null|
 ![](image/in-process_script_approval.png)
 ![](image/signatures_already_approved.png)
 
++ 不熟悉脚本语言的用户注意，groovy脚本中''不能引用变量，""才可以引用变量，如"${env}"
++ 用Snippet Generator生成的pipeline下拉列表语法报错，需要使用`[$class: 'ChoiceParameterDefinition', choices: 'staging\nproduction', description: '环境', name:'ENV']`替换生成的下拉选择代码。
++ groovy脚本运行在一个沙箱中，有些方法默认没有权限执行，需要在jenkins的配置中做额外配置
+![菜单](image/in-process_script_approval.png)
+![配置](image/signatures_already_approved1.png)
+
 ### 参考资料
   [Pipeline-plugin](https://github.com/jenkinsci/pipeline-plugin)
   [pipeline-examples](https://github.com/jenkinsci/pipeline-examples)
