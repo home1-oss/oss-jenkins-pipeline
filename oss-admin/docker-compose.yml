@@ -35,7 +35,7 @@ services:
     - SPRING_APPLICATION_NAME=${SPRING_APPLICATION_NAME:-oss-admin}
     - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-development.env}
     volumes:
-    - admin-volume:/root/data
+    - admin-volume:/root/.oss
     - admin-volume:/tmp
     #- ${HOME}/.jprofiler9/config.xml:${JAVA_JPROFILER_CONFIG:-/root/.jprofiler9/config.xml} # optional
     external_links:

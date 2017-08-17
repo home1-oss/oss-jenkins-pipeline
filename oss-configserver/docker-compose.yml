@@ -13,7 +13,7 @@ services:
     - "${EUREKA_INSTANCE_NONSECUREPORT:-8888}:${SERVER_PORT:-8888}"
     volumes:
     - volume-configserver:/tmp
-    - volume-configserver:/root/data
+    - volume-configserver:/root/.oss
 #    - ${SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY_PATH}/production-deploy_key:/root/production-deploy_key
 #    - ${SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY_PATH}/production-keystore.jks:/root/production-keystore.jks
     environment:
