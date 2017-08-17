@@ -15,7 +15,7 @@ data:
   ENCRYPT_KEYSTORE_SECRET: "key_pass"
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
   GIT_HOST: "gitlab.internal"
-  GIT_PREFIX: "ssh://git@gitlab.internal:20022/configserver"
+  GIT_PREFIX: "ssh://git@gitlab.internal:20022/home1-oss"
   SECURITY_USER_PASSWORD: "admin_pass"
   SPRING_APPLICATION_NAME: "configserver.local"
   SERVER_PORT: "8888"
