@@ -11,5 +11,5 @@ spec:
       nodePort: 30100
   selector:
     app: eureka-cluster
-  clusterIP: None
-  type: NodePort
+  #clusterIP: None
+  #type: NodePort
