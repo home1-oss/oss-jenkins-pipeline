@@ -35,4 +35,4 @@ spec:
 
         ports:
         - containerPort: 7979
-          name: oss-hystrixboard
+          name: oss-hystrixboar

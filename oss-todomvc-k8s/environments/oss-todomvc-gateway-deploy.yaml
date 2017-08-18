@@ -89,4 +89,4 @@ spec:
 
         ports:
         - containerPort: 8090
-          name: oss-todomvc-gateway
+          name: oss-todomvc-gat

@@ -6,9 +6,9 @@ metadata:
     app: oss-eureka
 spec:
   ports:
-    - port: 8761
-      name: oss-eureka
-      nodePort: 30001
+  - port: 8761
+    name: oss-eureka
+    nodePort: 30001
   selector:
     app: oss-eureka
   type: NodePort

@@ -6,9 +6,9 @@ metadata:
     app: oss-configserver
 spec:
   ports:
-    - port: 8888
-      name: oss-configserver
-      nodePort: 30000
+  - port: 8888
+    name: oss-configserver
+    nodePort: 30000
   selector:
     app: oss-configserver
   type: NodePort

@@ -6,9 +6,9 @@ metadata:
     app: oss-todomvc-thymeleaf
 spec:
   ports:
-    - port: 8083
-      name: oss-todomvc-thymeleaf
-      nodePort: 30503
+  - port: 8083
+    name: oss-todomvc-thymeleaf
+    nodePort: 30503
   selector:
     app: oss-todomvc-thymeleaf
   type: NodePort

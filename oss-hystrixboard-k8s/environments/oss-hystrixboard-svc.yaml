@@ -6,10 +6,10 @@ metadata:
     app: oss-hystrixboard
 spec:
   ports:
-    - port: 8700
-      name: oss-hystrixboard-port
-    - port: 5005
-      name: java-debug
+  - port: 8700
+    name: oss-hystrixboard-port
+  - port: 5005
+    name: java-debug
   selector:
     app: oss-hystrixboard
   type: NodePort

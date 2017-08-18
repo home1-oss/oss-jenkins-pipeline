@@ -6,9 +6,9 @@ metadata:
     app: oss-todomvc-gateway
 spec:
   ports:
-    - port: 8090
-      name: oss-todomvc-gateway
-      nodePort: 30502
+  - port: 8090
+    name: oss-todomvc-gateway
+    nodePort: 30502
   selector:
     app: oss-todomvc-gateway
   type: NodePort

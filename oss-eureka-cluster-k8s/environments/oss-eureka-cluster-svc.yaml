@@ -6,9 +6,9 @@ metadata:
     app: oss-eureka-cluster
 spec:
   ports:
-    - port: 8761
-      name: oss-eureka-cluster
-      nodePort: 30100
+  - port: 8761
+    name: oss-eureka-cluster
+    nodePort: 30100
   selector:
     app: oss-eureka-cluster
   #clusterIP: None

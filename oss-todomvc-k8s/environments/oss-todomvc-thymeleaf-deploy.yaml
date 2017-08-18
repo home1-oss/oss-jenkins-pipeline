@@ -89,4 +89,4 @@ spec:
 
         ports:
         - containerPort: 8083
-          name: oss-todomvc-thymeleaf
+          name: oss-todomvc-thy

@@ -6,9 +6,9 @@ metadata:
     app: oss-todomvc-app
 spec:
   ports:
-    - port: 8080
-      name: oss-todomvc-app
-      nodePort: 30501
+  - port: 8080
+    name: oss-todomvc-app
+    nodePort: 30501
   selector:
     app: oss-todomvc-app
   type: NodePort
