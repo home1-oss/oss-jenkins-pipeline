@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: oss-hystrixboard
+  namespace: default
+  labels:
+    app: oss-hystrixboard
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: oss-hystrixboard
+    spec:
+      containers:
+      - image: home1oss/oss-hystrixboard:#image_version#
+        name: oss-hystrixboard
+        env:
+        - name: EUREKA_INSTANCE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-hystrixboard-cm
+              key: EUREKA_INSTANCE_HOSTNAME
+        - name: EUREKA_INSTANCE_NONSECUREPORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-hystrixboard-cm
+              key: EUREKA_INSTANCE_NONSECUREPORT
+        - name: SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-hystrixboard-cm
+              key: SERVER_PORT
+
+        ports:
+        - containerPort: 7979
+          name: oss-hystrixboard

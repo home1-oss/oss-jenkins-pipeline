@@ -2,13 +2,13 @@ apiVersion: v1
 kind: ConfigMap
 data:
   ENV: "staging"
-  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
-  EUREKA_INSTANCE_HOSTNAME: "admin"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@oss-eureka:8761/eureka/"
+  EUREKA_INSTANCE_HOSTNAME: "oss-admin.internal"
   EUREKA_INSTANCE_NONSECUREPORT: "8700"
   JAVA_DEBUG_PORT: "5005"
   SERVER_PORT: "8700"
-  SPRING_APPLICATION_NAME: "admin"
+  SPRING_APPLICATION_NAME: "oss-admin.internal"
   SPRING_PROFILES_ACTIVE: "development.env"
 metadata:
-  name: admin-cm
+  name: oss-admin-cm
   namespace: default

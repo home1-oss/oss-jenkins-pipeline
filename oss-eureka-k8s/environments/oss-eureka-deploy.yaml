@@ -1,90 +1,92 @@
-apiVersion: apps/v1beta1
-kind: StatefulSet
-metadata:
-  name: oss-eureka-cluster
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: oss-eureka
+  labels:
+    app: oss-eureka
 spec:
-  serviceName: "oss-eureka-cluster"
-  replicas: 3
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: oss-eureka-cluster
+        app: oss-eureka
     spec:
       containers:
-      - name: oss-eureka-cluster
-        image: home1oss/oss-eureka:#image_version#
+      - image: home1oss/oss-eureka:#image_version#
+        name: oss-eureka
         env:
         - name: EUREKA_CLIENT_FETCHREGISTRY
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: EUREKA_CLIENT_FETCHREGISTRY
         - name: EUREKA_CLIENT_REGISTERWITHEUREKA
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: EUREKA_CLIENT_REGISTERWITHEUREKA
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         - name: EUREKA_INSTANCE_HOSTNAME
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: EUREKA_INSTANCE_HOSTNAME
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: EUREKA_INSTANCE_PREFER_IP_ADDRESS
         - name: EUREKA_INSTANCE_NONSECUREPORT
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: EUREKA_INSTANCE_NONSECUREPORT
         - name: PEER
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: PEER
         - name: SECURITY_BASIC_ENABLED
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: SECURITY_BASIC_ENABLED
         - name: SECURITY_USER_NAME
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: SECURITY_USER_NAME
         - name: SECURITY_USER_PASSWORD
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: SECURITY_USER_PASSWORD
         - name: SERVER_PORT
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: SERVER_PORT
         - name: SPRING_APPLICATION_NAME
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: SPRING_APPLICATION_NAME
         - name: SPRING_CLOUD_CLIENT_HOSTNAME
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
-              key: SPRING_APPLICATION_NAME
+              name: oss-eureka-cm
+              key: SPRING_CLOUD_CLIENT_HOSTNAME
         - name: SPRING_PROFILES_ACTIVE
           valueFrom:
             configMapKeyRef:
-              name: oss-eureka-cluster-cm
+              name: oss-eureka-cm
               key: SPRING_PROFILES_ACTIVE
 
         ports:
         - containerPort: 8761
-        name: oss-eureka-cluster
+          name: oss-eureka

@@ -1,12 +1,12 @@
 
 version: '2.1'
 services:
-  admin:
+  oss-admin:
     image: ${DOCKER_REGISTRY:-home1oss}/oss-admin:${PROJECT_VERSION:-latest}
     restart: always
     command: []
-    container_name: ${EUREKA_INSTANCE_HOSTNAME:-admin.local}
-    hostname: ${EUREKA_INSTANCE_HOSTNAME:-admin.local}
+    container_name: ${EUREKA_INSTANCE_HOSTNAME:-oss-admin.local}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:-oss-admin.local}
     ports:
     - "${EUREKA_INSTANCE_NONSECUREPORT:-8700}:${SERVER_PORT:-8700}"
     - "${JAVA_DEBUG_PORT:-5005}:${JAVA_DEBUG_PORT:-5005}" # optional
@@ -18,8 +18,8 @@ services:
     extra_hosts:
     - oss-eureka-peer2.internal:${HOST_IP_ADDRESS}
     environment:
-    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:-http://user:user_pass@eureka.local:8761/eureka/}
-    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-admin.local}
+    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:-http://user:user_pass@oss-eureka.local:8761/eureka/}
+    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-oss-admin.local}
     - EUREKA_INSTANCE_NONSECUREPORT=${EUREKA_INSTANCE_NONSECUREPORT:-8700}
     - JAVA_DEBUG_PORT=${JAVA_DEBUG_PORT:-5005} # optional
     - JAVA_JMC_ENABLED=${JAVA_JMC_ENABLED:-true} # optional
@@ -32,18 +32,18 @@ services:
     - SECURITY_USER_NAME=${SECURITY_USER_NAME:-admin}
     - SECURITY_USER_PASSWORD=${SECURITY_USER_PASSWORD:-admin_pass}
     - SERVER_PORT=${SERVER_PORT:-8700}
-    - SPRING_APPLICATION_NAME=${SPRING_APPLICATION_NAME:-oss-admin}
+    - SPRING_APPLICATION_NAME=${SPRING_APPLICATION_NAME:-oss-admin.local}
     - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-development.env}
     volumes:
-    - admin-volume:/root/.oss
-    - admin-volume:/tmp
+    - volume-oss-admin:/root/.oss
+    - volume-oss-admin:/tmp
     #- ${HOME}/.jprofiler9/config.xml:${JAVA_JPROFILER_CONFIG:-/root/.jprofiler9/config.xml} # optional
     external_links:
-    - eureka.local:eureka.local
-    - configserver.local:configserver.local
+    - oss-eureka.local:oss-eureka.local
+    - oss-configserver.local:oss-configserver.local
 
 volumes:
-  admin-volume: {}
+  volume-oss-admin: {}
 
 networks:
   default:

@@ -5,7 +5,7 @@ data:
   EUREKA_INSTANCE_NONSECUREPORT: "8090"
   MANAGEMENT_PORT: "8090"
   SERVER_PORT: "8090"
-  EUREKA_INSTANCE_HOSTNAME: "todomvc-gateway"
+  EUREKA_INSTANCE_HOSTNAME: "oss-todomvc-gateway"
 metadata:
-  name: todomvc-gateway-cm
+  name: oss-todomvc-gateway-cm
   namespace: default

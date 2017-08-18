@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: configserver
+  name: oss-configserver
   labels:
-    app: configserver
+    app: oss-configserver
 spec:
   ports:
     - port: 8888
-      name: configserver
+      name: oss-configserver
       nodePort: 30000
   selector:
-    app: configserver
+    app: oss-configserver
   type: NodePort

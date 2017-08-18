@@ -4,8 +4,8 @@ data:
   ENV: "staging"
   EUREKA_CLIENT_FETCHREGISTRY: "false"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "false"
-  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
-  EUREKA_INSTANCE_HOSTNAME: "eureka"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@oss-eureka:8761/eureka/"
+  EUREKA_INSTANCE_HOSTNAME: "oss-eureka"
   EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
   EUREKA_INSTANCE_NONSECUREPORT: "8761"
   PEER: "standalone"
@@ -13,9 +13,9 @@ data:
   SECURITY_USER_NAME: "user"
   SECURITY_USER_PASSWORD: "user_pass"
   SERVER_PORT: "8761"
-  SPRING_APPLICATION_NAME: "eureka"
-  SPRING_CLOUD_CLIENT_HOSTNAME: "eureka"
+  SPRING_APPLICATION_NAME: "oss-eureka-standalone"
+  SPRING_CLOUD_CLIENT_HOSTNAME: "oss-eureka"
   SPRING_PROFILES_ACTIVE: "development.env"
 metadata:
-  name: eureka-cm
+  name: oss-eureka-cm
   namespace: default

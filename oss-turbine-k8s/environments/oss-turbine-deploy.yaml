@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: oss-turbine
+  namespace: default
+  labels:
+    app: oss-turbine
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: oss-turbine
+    spec:
+      containers:
+      - image: home1oss/oss-turbine:#image_version#
+        name: oss-turbine
+        env:
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom:
+            configMapKeyRef:
+              name: oss-turbine-cm
+              key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        - name: EUREKA_INSTANCE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-turbine-cm
+              key: EUREKA_INSTANCE_HOSTNAME
+        - name: EUREKA_INSTANCE_NONSECUREPORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-turbine-cm
+              key: EUREKA_INSTANCE_NONSECUREPORT
+        - name: HYSTRIX_APP_NAMES
+          valueFrom:
+            configMapKeyRef:
+              name: oss-turbine-cm
+              key: HYSTRIX_APP_NAMES
+        - name: SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-turbine-cm
+              key: SERVER_PORT
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: oss-turbine-cm
+              key: SPRING_PROFILES_ACTIVE
+
+        ports:
+        - containerPort: 8989
+          name: oss-turbine

@@ -5,7 +5,7 @@ data:
   EUREKA_INSTANCE_NONSECUREPORT: "8083"
   MANAGEMENT_PORT: "8083"
   SERVER_PORT: "8083"
-  EUREKA_INSTANCE_HOSTNAME: "todomvc-thymeleaf"
+  EUREKA_INSTANCE_HOSTNAME: "oss-todomvc-thymeleaf"
 metadata:
-  name: todomvc-thymeleaf-cm
+  name: oss-todomvc-thymeleaf-cm
   namespace: default

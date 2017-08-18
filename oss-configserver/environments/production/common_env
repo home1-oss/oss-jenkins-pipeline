@@ -11,6 +11,7 @@ export DOCKER_REGISTRY=registry.docker.internal
 #export ENCRYPT_KEYSTORE_SECRET="<secret>"
 export ENV=production
 export EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://oss-eureka-peer1.idc:8761/eureka,http://oss-eureka-peer2.idc:8761/eureka,http://oss-eureka-peer3.idc:8761/eureka
+export GIT_PREFIX=ssh://git@gitlab.internal:20022/home1-oss
 export SPRING_APPLICATION_NAME=oss-configserver
 export SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION=common-production
 export SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL=master

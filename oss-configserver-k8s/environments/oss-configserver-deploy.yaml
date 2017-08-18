@@ -1,0 +1,184 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: oss-configserver
+  labels:
+    app: oss-configserver
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: oss-configserver
+    spec:
+      containers:
+      - image: home1oss/oss-configserver:#image_version#
+        name: oss-configserver
+        env:
+        - name: APP_ADMINPUBLICKEY
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: APP_ADMINPUBLICKEY
+        - name: CLOUD_CLIENT_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: CLOUD_CLIENT_HOSTNAME
+        - name: EUREKA_INSTANCE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: EUREKA_INSTANCE_HOSTNAME
+        - name: DB_ADDR
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: DB_ADDR
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: DB_NAME
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: DB_PASS
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: DB_PORT
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: DB_USER
+        - name: ENCRYPT_KEYSTORE_ALIAS
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: ENCRYPT_KEYSTORE_ALIAS
+        - name: ENCRYPT_KEYSTORE_LOCATION
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: ENCRYPT_KEYSTORE_LOCATION
+        - name: ENCRYPT_KEYSTORE_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: ENCRYPT_KEYSTORE_PASSWORD
+        - name: ENCRYPT_KEYSTORE_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: ENCRYPT_KEYSTORE_SECRET
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        - name: GIT_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: GIT_HOST
+        - name: GIT_PREFIX
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: GIT_PREFIX
+#        - name: LOGGING_LEVEL_
+#          value: debug
+        - name: SECURITY_USER_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SECURITY_USER_PASSWORD
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_APPLICATION_NAME
+        - name: SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SERVER_PORT
+        - name: SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION
+        - name: SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL
+        - name: SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_DEPLOYKEY
+        - name: SPRING_CLOUD_CONFIG_SERVER_DEFAULTLABEL
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_DEFAULTLABEL
+        - name: SPRING_CLOUD_CONFIG_SERVER_DEFAULTPROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_DEFAULTPROFILE
+        - name: SPRING_CLOUD_CONFIG_SERVER_MONITOR_BITBUCKET_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_MONITOR_BITBUCKET_ENABLED
+        - name: SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITHUB_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITHUB_ENABLED
+        - name: SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLABPATH_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLABPATH_ENABLED
+        - name: SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLAB_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITLAB_ENABLED
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_PROFILES_ACTIVE
+        - name: SPRING_RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_RABBITMQ_HOST
+        - name: SPRING_RABBITMQ_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_RABBITMQ_PASSWORD
+        - name: SPRING_RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_RABBITMQ_PORT
+        - name: SPRING_RABBITMQ_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: oss-configserver-cm
+              key: SPRING_RABBITMQ_USERNAME
+
+        ports:
+        - containerPort: 8888
+          name: oss-configserver

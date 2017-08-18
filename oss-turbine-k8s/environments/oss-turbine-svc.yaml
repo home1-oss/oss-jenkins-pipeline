@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: turbine
+  name: oss-turbine
   labels:
-    app: turbine
+    app: oss-turbine
 spec:
   ports:
     - port: 8989
-      name: turbine
+      name: oss-turbine
   selector:
-    app: turbine
+    app: oss-turbine
   type: NodePort

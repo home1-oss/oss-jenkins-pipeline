@@ -3,21 +3,22 @@ kind: ConfigMap
 data:
   ENV: "staging"
   APP_ADMINPUBLICKEY: "RSA1024_PUB_X509:MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/gmBcdQZxiQmhQrP1awAZuuOl4snl7cEV8n65osVO7CdqxXG5mUYNVr6siwuTm/SsmBV+86JISlzvMK/Bxwsmf/ApZicgItChmDuU9TCaZIksqnpbtONnCm/sHWwa/2hqPTjdc0LC+jQ/FCU2b9vpbSId0Wg28/gtoGaLWbsm/QIDAQAB"
-  EUREKA_INSTANCE_HOSTNAME: "configserver"
+  CLOUD_CLIENT_HOSTNAME: "oss-configserver.default.svc.cluster.local"
   DB_ADDR: "~/.oss/oss-configserver/h2"
   DB_NAME: "oss-configserver"
-  DB_PORT: "3306"
   DB_PASS: "user_pass"
+  DB_PORT: "3306"
   DB_USER: "user"
   ENCRYPT_KEYSTORE_ALIAS: "key_alias"
   ENCRYPT_KEYSTORE_LOCATION: "classpath:keystore.jks"
   ENCRYPT_KEYSTORE_PASSWORD: "store_pass"
   ENCRYPT_KEYSTORE_SECRET: "key_pass"
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
+  EUREKA_INSTANCE_HOSTNAME: "oss-configserver.default.svc.cluster.local"
   GIT_HOST: "gitlab.internal"
   GIT_PREFIX: "ssh://git@gitlab.internal:20022/home1-oss"
   SECURITY_USER_PASSWORD: "admin_pass"
-  SPRING_APPLICATION_NAME: "configserver.local"
+  SPRING_APPLICATION_NAME: "oss-configserver"
   SERVER_PORT: "8888"
   SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_APPLICATION: "common"
   SPRING_CLOUD_CONFIG_SERVER_COMMONCONFIG_LABEL: "develop"
@@ -36,5 +37,5 @@ data:
 #  LOGGING_LEVEL_: "debug"
 
 metadata:
-  name: configserver-cm
+  name: oss-configserver-cm
   namespace: default

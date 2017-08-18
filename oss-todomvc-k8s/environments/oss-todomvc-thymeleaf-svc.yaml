@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: todomvc-thymeleaf
+  name: oss-todomvc-thymeleaf
   labels:
-    app: todomvc-thymeleaf
+    app: oss-todomvc-thymeleaf
 spec:
   ports:
     - port: 8083
-      name: todomvc-thymeleaf
+      name: oss-todomvc-thymeleaf
       nodePort: 30503
   selector:
-    app: todomvc-thymeleaf
+    app: oss-todomvc-thymeleaf
   type: NodePort

@@ -3,19 +3,19 @@ services:
   oss-turbine:
     image: ${DOCKER_REGISTRY:-home1oss}/oss-turbine:${PROJECT_VERSION:-latest}
     command: start
-    hostname: ${EUREKA_INSTANCE_HOSTNAME:-turbine.local}
-    container_name: ${EUREKA_INSTANCE_HOSTNAME:-turbine.local}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:-oss-turbine.local}
+    container_name: ${EUREKA_INSTANCE_HOSTNAME:-oss-turbine.local}
     ports:
     - "${EUREKA_INSTANCE_NONSECUREPORT:-8989}:${SERVER_PORT:-8989}"
     environment:
-    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:-http://user:user_pass@eureka.local:8761/eureka/}
-    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-turbine.local}
+    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:-http://user:user_pass@oss-eureka.local:8761/eureka/}
+    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-oss-turbine.local}
     - EUREKA_INSTANCE_NONSECUREPORT=${EUREKA_INSTANCE_NONSECUREPORT:-8989}
     - HYSTRIX_APP_NAMES=${HYSTRIX_APP_NAMES:-OSS-TODOMVC-APP}
     - SERVER_PORT=${SERVER_PORT:-8989}
     - SPRING_PROFILES_ACTIVE=${ENV:-development}.env
     external_links:
-    - ${LOCAL_EUREKA_STANDALONE:-eureka.local}:eureka.local
+    - ${LOCAL_EUREKA_STANDALONE:-oss-eureka.local}:oss-eureka.local
 
 networks:
   default:

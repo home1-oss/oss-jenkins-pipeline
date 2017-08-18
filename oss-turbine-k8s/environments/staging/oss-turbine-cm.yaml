@@ -2,12 +2,12 @@ apiVersion: v1
 kind: ConfigMap
 data:
   ENV: "staging"
-  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@eureka:8761/eureka/"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://user:user_pass@oss-eureka:8761/eureka/"
   EUREKA_INSTANCE_HOSTNAME: "turbine"
   EUREKA_INSTANCE_NONSECUREPORT: "8989"
   HYSTRIX_APP_NAMES: "oss-todomvc-app"
   SERVER_PORT: "8989"
   SPRING_PROFILES_ACTIVE: "development.env"
 metadata:
-  name: turbine-cm
+  name: oss-turbine-cm
   namespace: default

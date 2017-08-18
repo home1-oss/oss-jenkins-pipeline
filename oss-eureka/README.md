@@ -17,7 +17,7 @@
 
 2. 部署Service到集群
 
-        # service defined all eureka node
+        # service defined all oss-eureka node
         kubectl create -f k8s-service.yaml
 
 3. 部署应用到集群
