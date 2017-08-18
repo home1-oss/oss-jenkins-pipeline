@@ -10,5 +10,5 @@
     ]
   },
   "PROJECT_TYPE":"docker-compose",
-  "HEALTH_API":"http://#host#:8080"
+  "HEALTH_API":"http://#host#:8888"
 }
